@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:15
+    container_name: music_schedule_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: music_db   # вот эта строка создаст БД при старте
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
