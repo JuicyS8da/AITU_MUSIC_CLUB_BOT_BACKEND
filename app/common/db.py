@@ -23,4 +23,6 @@ async def get_db() -> AsyncSession:
 # Function to create tables (for initial setup, not for production use)
 async def init_models():
     async with engine.begin() as conn:
+        # удалит старые таблицы и создаст новые по моделям
+        # await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)

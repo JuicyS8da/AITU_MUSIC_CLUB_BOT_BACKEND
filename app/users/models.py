@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, BigInteger
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.common.associations import band_members
 from app.common.db import Base
 
 class User(Base):
@@ -12,3 +14,9 @@ class User(Base):
     last_name: Mapped[str] = mapped_column(String, nullable=True)
     is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+
+    bands: Mapped[list["Band"]] = relationship(
+        "Band",
+        secondary=band_members,
+        back_populates="members",
+    )
