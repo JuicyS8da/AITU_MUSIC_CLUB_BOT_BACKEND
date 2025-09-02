@@ -1,7 +1,7 @@
 from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.common.db import Base
-from app.common.associations import band_members
+from app.common.associations import band_members, band_rehearsals
 
 class Band(Base):
     __tablename__ = "bands"
@@ -16,3 +16,10 @@ class Band(Base):
     )
     is_active: Mapped[bool] = mapped_column(default=True)
     is_approved: Mapped[bool] = mapped_column(default=False)
+
+    rehearsals: Mapped[list["Rehearsal"]] = relationship(
+        "Rehearsal",
+        back_populates="band",
+        cascade="all, delete-orphan",
+        single_parent=True
+    )

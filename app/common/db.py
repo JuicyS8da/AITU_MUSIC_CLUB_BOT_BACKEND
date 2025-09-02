@@ -16,7 +16,7 @@ AsyncSessionLocal = async_sessionmaker(
 Base = declarative_base()
 
 # зависимость для FastAPI
-async def get_db() -> AsyncSession:
+async def get_async_session() -> AsyncSession:
     async with AsyncSessionLocal() as session:
         yield session
 
